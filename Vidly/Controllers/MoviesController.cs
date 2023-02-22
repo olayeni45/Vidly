@@ -7,6 +7,23 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
+        //GET: /movies
+        public ActionResult Index()
+        {
+            List<Movie> list = new List<Movie>()
+           {
+                new Movie{Id=1, Name="Shrek"},
+                new Movie{Id=2,Name="Wall-e"}
+           };
+
+            MovieViewModel movies = new MovieViewModel()
+            {
+                Movies = list
+            };
+
+            return View(movies);
+        }
+
         // GET: Movies/Random
         public ActionResult Random()
         {
@@ -36,18 +53,8 @@ namespace Vidly.Controllers
             return Content("Id = " + id);
         }
 
-        //GET: /movies
-        public ActionResult Index(int? pageIndex, string sortBy)
-        {
-            if (!pageIndex.HasValue)
-                pageIndex = 1;
 
-            if (string.IsNullOrWhiteSpace(sortBy))
-                sortBy = "Name";
 
-            return Content($"pageIndex={pageIndex}&sortBy={sortBy}");
-
-        }
 
 
         //GET: /movies/release/{year}/{month}
@@ -59,3 +66,18 @@ namespace Vidly.Controllers
         }
     }
 }
+
+
+/*
+       public ActionResult Index(int? pageIndex, string sortBy)
+       {
+           if (!pageIndex.HasValue)
+               pageIndex = 1;
+
+           if (string.IsNullOrWhiteSpace(sortBy))
+               sortBy = "Name";
+
+           return Content($"pageIndex={pageIndex}&sortBy={sortBy}");
+
+       }
+       */
