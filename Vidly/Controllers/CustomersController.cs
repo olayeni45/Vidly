@@ -1,45 +1,76 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
 using Vidly.Models;
-using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
-        //Customers data for data persistence
-        static readonly List<Customer> customers = new List<Customer>()
-            {
-                new Customer{Id=1 ,Name="John Smith"},
-                new Customer{Id=2, Name="Mary Williams"}
-            };
+        private ApplicationDbContext _context;
 
-        // GET: /customers
+        public CustomersController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
+        //GET: /customers
         public ActionResult Index()
         {
-            CustomersViewModel viewModel = new CustomersViewModel()
-            {
-                Customers = customers
-            };
-
-            return View(viewModel);
+            List<Customer> cst = _context.Customers
+                .Include(c => c.MembershipType)
+                .ToList();
+            return View(cst);
         }
 
         //GET: /customers/details/{id}
         [Route("customers/details/{id}")]
         public ActionResult Details(int id)
         {
-            Customer customer = new Customer();
+            Customer cst = _context.Customers.SingleOrDefault(c => c.Id == id);
 
-            customer = customers.Find(cst => cst.Id == id);
-
-            if (customer == null)
+            if (cst == null)
             {
                 return HttpNotFound();
             }
 
-            return View(customer);
+            return View(cst);
 
         }
+
+        /*
+          
+         //Customers data for data persistence
+        static readonly List<Customer> customers = new List<Customer>()
+            {
+                new Customer{Id=1 ,Name="John Smith"},
+                new Customer{Id=2, Name="Mary Williams"}
+            };
+
+        public ActionResult Details(int id)
+        {
+            Customer cst = GetCustomers().SingleOrDefault(c => c.Id == id);
+
+            if (cst == null)
+                return HttpNotFound();
+
+            return View(cst);
+        }
+
+        private IEnumerable<Customer> GetCustomers()
+        {
+            return new List<Customer>()
+            {
+                new Customer{Id=1 ,Name="John Smith"},
+                new Customer{Id=2, Name="Mary Williams"}
+            };
+        }
+        */
     }
 }
