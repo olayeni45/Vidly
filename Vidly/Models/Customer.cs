@@ -11,6 +11,7 @@ namespace Vidly.Models
         [StringLength(255)]
         public string Name { get; set; }
 
+        [Display(Name = "Date of Birth")]
         public DateTime? Birthdate { get; set; }
 
         public bool IsSubscribedToNewsLetter { get; set; }
@@ -18,6 +19,7 @@ namespace Vidly.Models
         public MembershipType MembershipType { get; set; }
 
         //Entity framework recognizes this as the foreign key of the Class MembershipType
+        [Display(Name = "Membership Type")]
         public byte MembershipTypeId { get; set; }
     }
 }
