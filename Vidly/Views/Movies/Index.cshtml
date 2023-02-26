@@ -6,6 +6,8 @@
 
 <h1>Movies</h1>
 
+@Html.ActionLink("New Movie", "New", "Movies", new { @class = "btn btn-primary" })
+
 <table class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -15,13 +17,12 @@
     </thead>
 
     <tbody>
-        @foreach(Vidly.Models.Movie mv in Model)
+        @foreach (Vidly.Models.Movie mv in Model)
         {
             <tr>
-                <td> @Html.ActionLink(mv.Name, "Details", "Movies", new { id = mv.Id }, null) </td>
+                <td> @Html.ActionLink(mv.Name, "Edit", "Movies", new { id = mv.Id }, null) </td>
                 <td>@mv.Genre.Name</td>
-            </tr>              
-           
+            </tr>
         }
     </tbody>
 
