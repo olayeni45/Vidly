@@ -216,6 +216,10 @@
     <Compile Include="Migrations\202302231302519_PopulateGenres.designer.cs">
       <DependentUpon>202302231302519_PopulateGenres.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202302261737083_updateNameFieldFromMovieModel.cs" />
+    <Compile Include="Migrations\202302261737083_updateNameFieldFromMovieModel.designer.cs">
+      <DependentUpon>202302261737083_updateNameFieldFromMovieModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -295,9 +299,7 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Customers\CustomerForm.cshtml" />
-    <Content Include="Views\Movies\NewMovie.cshtml" />
-    <Content Include="Views\Movies\Edit.cshtml" />
-    <Content Include="Views\Movies\_MovieForm.cshtml" />
+    <Content Include="Views\Movies\MovieForm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -345,6 +347,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202302231302519_PopulateGenres.resx">
       <DependentUpon>202302231302519_PopulateGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202302261737083_updateNameFieldFromMovieModel.resx">
+      <DependentUpon>202302261737083_updateNameFieldFromMovieModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
