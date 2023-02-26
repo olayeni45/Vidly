@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -72,7 +73,12 @@ namespace Vidly.Controllers
         //GET: /movies/edit/1 OR /movies/edit?id=1
         public ActionResult Edit(int id)
         {
-            Movie mv = _context.Movies.Single(m => m.Id == id);
+            Movie mv = _context.Movies.SingleOrDefault(m => m.Id == id);
+
+            if (mv == null)
+            {
+                return HttpNotFound();
+            }
 
             List<Genre> genres = _context.Genres.ToList();
 
@@ -104,6 +110,7 @@ namespace Vidly.Controllers
         {
             if (movie.Id == 0)
             {
+                movie.DateAdded = DateTime.Now;
                 _context.Movies.Add(movie);
             }
             else
