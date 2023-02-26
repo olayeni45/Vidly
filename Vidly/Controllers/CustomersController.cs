@@ -53,20 +53,49 @@ namespace Vidly.Controllers
             List<MembershipType> membershipTypes = _context
                 .MembershipTypes
                 .ToList();
-            NewCustomerViewModel vm = new NewCustomerViewModel()
+            CustomerFormViewModel vm = new CustomerFormViewModel()
             {
                 MembershipTypes = membershipTypes
             };
-            return View(vm);
+            return View("CustomerForm", vm);
         }
 
         //Create a new customer
         [HttpPost]
-        public ActionResult Create(Customer customer)
+        public ActionResult Save(Customer customer)
         {
-            _context.Customers.Add(customer);
+            if (customer.Id == 0)
+            {
+                _context.Customers.Add(customer);
+            }
+            else
+            {
+                Customer dbCustomer = _context.Customers.Single(c => c.Id == customer.Id);
+
+                dbCustomer.Name = customer.Name;
+                dbCustomer.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
+                dbCustomer.Birthdate = customer.Birthdate;
+                dbCustomer.MembershipTypeId = customer.MembershipTypeId;
+            }
             _context.SaveChanges();
             return RedirectToAction("Index", "Customers");
+        }
+
+        //Edit a customer
+        public ActionResult Edit(int id)
+        {
+            Customer cst = _context.Customers.SingleOrDefault(c => c.Id == id);
+
+            if (cst == null)
+                return HttpNotFound();
+
+            CustomerFormViewModel vm = new CustomerFormViewModel()
+            {
+                Customer = cst,
+                MembershipTypes = _context.MembershipTypes.ToList()
+            };
+
+            return View("CustomerForm", vm);
         }
 
         /*
