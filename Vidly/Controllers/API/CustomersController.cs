@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -26,22 +27,22 @@ namespace Vidly.Controllers.API
         }
 
         //GET /api/customers/{id}
-        public CustomerDTO GetCustomer(int id)
+        public IHttpActionResult GetCustomer(int id)
         {
             Customer cst = _context.Customers.SingleOrDefault(c => c.Id == id);
 
             if (cst == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
 
-            return Mapper.Map<Customer, CustomerDTO>(cst);
+            return Ok(Mapper.Map<Customer, CustomerDTO>(cst));
         }
 
         //POST /api/customers
         [HttpPost]
-        public CustomerDTO CreateCustomer(CustomerDTO cstDTO)
+        public IHttpActionResult CreateCustomer(CustomerDTO cstDTO)
         {
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest();
 
             Customer cst = Mapper.Map<CustomerDTO, Customer>(cstDTO);
             _context.Customers.Add(cst);
@@ -49,7 +50,7 @@ namespace Vidly.Controllers.API
 
             cstDTO.Id = cst.Id;
 
-            return cstDTO;
+            return Created(new Uri(Request.RequestUri + "/" + cst.Id), cstDTO);
         }
 
         //PUT /api/customers/{id}
