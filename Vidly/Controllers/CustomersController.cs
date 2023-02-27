@@ -24,10 +24,13 @@ namespace Vidly.Controllers
         //GET: /customers
         public ActionResult Index()
         {
+            /*
             List<Customer> cst = _context.Customers
                 .Include(c => c.MembershipType)
                 .ToList();
             return View(cst);
+            */
+            return View();
         }
 
         //GET: /customers/details/{id}
