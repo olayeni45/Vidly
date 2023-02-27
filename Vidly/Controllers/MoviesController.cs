@@ -25,11 +25,14 @@ namespace Vidly.Controllers
         //GET: /movies
         public ActionResult Index()
         {
+            /*
             List<Movie> movies = _context.Movies
                 .Include(m => m.Genre)
                 .ToList();
 
             return View(movies);
+            */
+            return View();
         }
 
         [Route("movies/details/{id}")]

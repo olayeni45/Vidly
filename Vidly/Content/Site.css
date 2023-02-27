@@ -29,10 +29,14 @@ textarea {
     border-color: #fff
 }
 
-.field-validation-error{
-    color:red;
+.field-validation-error {
+    color: red;
 }
 
-.input-validation-error{
-    border:2px solid red;
+.input-validation-error {
+    border: 2px solid red;
+}
+
+.margin {
+    margin-bottom: 10px;
 }
