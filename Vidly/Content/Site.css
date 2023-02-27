@@ -36,7 +36,3 @@ textarea {
 .input-validation-error {
     border: 2px solid red;
 }
-
-.margin {
-    margin-bottom: 10px;
-}
