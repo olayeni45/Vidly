@@ -31,14 +31,14 @@ namespace Vidly.Controllers.API
                 if (movie.NumberAvailable == 0)
                     return BadRequest("Movie is not available");
 
-                Rental rental = new Rental()
+                movie.NumberAvailable--;
+
+                var rental = new Rental()
                 {
                     Customer = cst,
                     Movie = movie,
                     DateRented = DateTime.Now,
                 };
-
-                movie.NumberAvailable -= 1;
 
                 _context.Rentals.Add(rental);
             }
