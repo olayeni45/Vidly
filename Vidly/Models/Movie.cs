@@ -27,5 +27,7 @@ namespace Vidly.Models
         [Required]
         [Range(1, 20, ErrorMessage = "The field Number must be between 1 and 20.")]
         public int StockNumber { get; set; }
+
+        public int NumberAvailable { get; set; }
     }
 }
